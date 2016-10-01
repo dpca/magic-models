@@ -1,5 +1,7 @@
 #!/bin/bash
 
+docker-compose run --rm magic-models bundle install
+
 # Generate configuration files
 docker-compose run --rm -e NAME=$1 magic-models bundle exec rmre \
   -o /models/output/$OUT/ \
