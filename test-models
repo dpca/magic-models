@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker-compose run --rm \
+  -e ${NAME}_HOST=$HOST \
+  -e ${NAME}_USER=$USER \
+  -e ${NAME}_PASSWORD=$PASSWORD \
+  -e ${NAME}_DATABASE=$DATABASE \
+  magic-models irb -r ./$1

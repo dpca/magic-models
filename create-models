@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Generate configuration files
+docker-compose run --rm -e NAME=$1 magic-models bundle exec rmre \
+  -o /models/output/$OUT/ \
+  -f
+
+# Generate models
+docker-compose run --rm \
+  -e NAME=$1 \
+  -e REMOVE_RELATIONSHIP_PREFIXES=true \
+  magic-models bundle exec rmre \
+    -a mysql2 \
+    -d $DATABASE \
+    -s $HOST \
+    -u $USER \
+    -p $PASSWORD \
+    -o /models/output/$OUT/models/
+
+# Generate schema
+docker-compose run --rm \
+  -e NAME=$1 \
+  -e REMOVE_RELATIONSHIP_PREFIXES=true \
+  magic-models bundle exec rmre \
+    --dump-schema /models/output/$OUT/schema.rb \
+    -a mysql2 \
+    -d $DATABASE \
+    -s $HOST \
+    -u $USER \
+    -p $PASSWORD \
+    -o /models/output/$OUT/models/

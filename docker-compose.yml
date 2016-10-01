@@ -1,0 +1,4 @@
+magic-models:
+  build: .
+  volumes:
+    - .:/models
